@@ -45,16 +45,16 @@ To use the script, you need to create a Reddit API application to obtain your AP
 
 3.  Create a .env file in the same directory as the script and add your Reddit API credentials and configuration:
 
-
-    CLIENT_ID=your_client_id
-    CLIENT_SECRET=your_client_secret
-    USER_AGENT=your_user_agent
-    USERNAME=your_username
-    PASSWORD=your_password
-    SUBREDDIT=your_subreddit
-    REFERRAL_CODE=your_referral_code
-    LOG_FILE=reddit_bot.log
-
+```
+CLIENT_ID=your_client_id
+CLIENT_SECRET=your_client_secret
+USER_AGENT=your_user_agent
+USERNAME=your_username
+PASSWORD=your_password
+SUBREDDIT=your_subreddit
+REFERRAL_CODE=your_referral_code
+LOG_FILE=reddit_bot.log
+```
 4.  Run the script:
 
 ```bash
