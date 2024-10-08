@@ -1,5 +1,7 @@
 # Reddit Referral Code Poster
 
+![image](image.jpg)
+
 This is a simple Python script that posts a referral code to a specified subreddit at regular intervals using the PRAW (Python Reddit API Wrapper) library.
 
 ## Features
