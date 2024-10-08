@@ -16,7 +16,7 @@ def create_reddit_instance():
 
 def post_to_reddit(reddit, subreddit_name, title):
     try:
-        reddit.subreddit(subreddit_name).submit(title)
+        reddit.subreddit(subreddit_name).submit(title=title, selftext='')
         logging.info(f"Posted referral code to r/{subreddit_name}: {title}")
     except praw.exceptions.RedditAPIException as e:
         logging.error(f"Reddit API error: {e}")
