@@ -9,9 +9,8 @@ def create_reddit_instance():
     return praw.Reddit(
         client_id=os.getenv('CLIENT_ID'),
         client_secret=os.getenv('CLIENT_SECRET'),
-        user_agent=os.getenv('USER_AGENT'),
-        username=os.getenv('USERNAME'),
-        password=os.getenv('PASSWORD')
+        user_agent='Reddit Referral Code Poster (by u/impshum)',
+        refresh_token=os.getenv('REFRESH_TOKEN')
     )
 
 def post_to_reddit(reddit, subreddit_name, title):
@@ -29,7 +28,7 @@ def post_to_reddit(reddit, subreddit_name, title):
 
 def main():
     logging.basicConfig(
-        filename=os.getenv('LOG_FILE'),
+        filename='reddit_bot.log',
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s'
     )

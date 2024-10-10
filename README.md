@@ -2,85 +2,109 @@
 
 ![image](image.jpg)
 
-This is a simple Python script that posts a referral code to a specified subreddit at regular intervals using the PRAW (Python Reddit API Wrapper) library.
+This Python script automates the process of obtaining a Reddit API refresh token and posts a referral code to a specified subreddit at regular intervals using the PRAW (Python Reddit API Wrapper) library.
 
 ## Features
 
--   Post a single referral code to a subreddit.
--   Log actions and errors to a specified log file.
--   Configuration is handled through a `.env` file.
+- Automated OAuth2 authentication flow for obtaining a refresh token
+- Post a single referral code to a subreddit
+- Log actions and errors to a specified log file
+- Configuration handled through a `.env` file
+- Secure handling of client credentials using environment variables
+- User-friendly console and browser interactions
 
 ## Requirements
 
--   Python 3.x
--   PRAW
--   python-dotenv
+- Python 3.6 or higher
+- PRAW
+- python-dotenv
 
-## Obtaining a Reddit API Key
+## Obtaining Reddit API Credentials
 
-To use the script, you need to create a Reddit API application to obtain your API credentials:
+To use the script, you need to create a Reddit API application:
 
-1.  **Go to the Reddit App Preferences**: Navigate to [Reddit App Preferences](https://old.reddit.com/prefs/apps).
-
-2.  **Create a New Application**:
-
-    -   Click on the “Create App” or “Create Another App” button.
-    -   Fill in the application details:
-        -   **Name**: Choose a name for your application.
-        -   **App type**: Select “script.”
-        -   **Description**: This can be left blank.
-        -   **About url**: This can be left blank.
-        -   **Permissions**: This can be left blank.
-        -   **Redirect uri**: Set it to `http://localhost:8000` (or any valid URL, but it won't be used for scripts).
-    -   Click on the “Create app” button.
-
-3.  **Get Your Credentials**: After creating the app, you will see your `client_id` (just under the webapp title) and `client_secret` (located under the app settings).
+1. Go to [Reddit App Preferences](https://www.reddit.com/prefs/apps)
+2. Click "Create App" or "Create Another App"
+3. Fill in the details:
+   - Name: Choose a name for your application
+   - App type: Select "script"
+   - Description: Optional
+   - About url: Optional
+   - Redirect uri: Set to `http://localhost:8080`
+4. Click "Create app"
+5. Note down the client ID (under the app name) and client secret
 
 ## Installation
 
-1.  Clone the repository or download the script.
-2.  Install the required packages:
+1. Clone this repository or download the script files.
 
-```bash
- pip install -r requirements.txt
-```
+2. Install the required Python packages:
 
-3.  Create a .env file in the same directory as the script and add your Reddit API credentials and configuration:
+   ```
+   pip install -r requirements.txt
+   ```
 
-```
-CLIENT_ID=your_client_id
-CLIENT_SECRET=your_client_secret
-USER_AGENT=your_user_agent
-USERNAME=your_username
-PASSWORD=your_password
-SUBREDDIT=your_subreddit
-REFERRAL_CODE=your_referral_code
-LOG_FILE=reddit_bot.log
-```
-4.  Run the script:
+3. Create a `.env` file in the same directory as the script with the following content:
 
-```bash
-python main.py
-```
+   ```
+   CLIENT_ID=XXXX
+   CLIENT_SECRET=XXXX
+   REFRESH_TOKEN=XXXX
+   REDIRECT_URI=http://localhost:8080
+   SUBREDDIT=XXXX
+   REFERRAL_CODE=XXXX
+   ```
+
+   Replace the placeholders with your actual information.
+
+## Usage
+
+### Authentication
+
+1. Run the authentication script:
+
+   ```
+   python reddit_auth_script.py
+   ```
+
+2. The script will open a web browser window for you to log in to Reddit and authorise the application.
+
+3. After authorisation, return to the terminal. The script will automatically complete the process and display your refresh token.
+
+4. Add the refresh token to your `.env` file:
+
+   ```
+   REFRESH_TOKEN=your_refresh_token
+   ```
+
+### Posting Referral Code
+
+1. After setting up authentication, run the main script:
+
+   ```
+   python main.py
+   ```
+
+2. The script will use the refresh token to authenticate and post your referral code to the specified subreddit.
 
 ## Logging
 
-The script logs its actions and any errors to a specified log file. You can adjust the log file name in the .env file.
+The script logs its actions and any errors to the specified log file (default: `reddit_bot.log`).
 
 ## Setting Up a Cron Job
 
-To run the script automatically at regular intervals using cron, follow these steps:
+To run the script automatically at regular intervals using cron:
 
-1.  Open your crontab configuration by running:
+1. Open your crontab configuration:
 
-```bash
-crontab -e
-```
+   ```
+   crontab -e
+   ```
 
-2.  Add a new line to specify that you want the script to run every 24 hours. For example, to run the script at midnight every day, add:
+2. Add a line to run the script every 24 hours (e.g., at midnight):
 
-```bash
-0 0 * * * /usr/bin/python3 /path/to/main.py
-```
+   ```
+   0 0 * * * /usr/bin/python3 /path/to/main.py
+   ```
 
-3.  Save and exit the crontab editor.
+3. Save and exit the crontab editor.
